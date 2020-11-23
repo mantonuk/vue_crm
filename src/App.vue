@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
+
+<style lang="scss">
+@import "~materialize-css/dist/css/materialize.min.css";
+@import "assets/index.css";
+</style>
 
 <style lang="scss">
 #app {
@@ -30,3 +33,20 @@
   }
 }
 </style>
+
+<script>
+
+import Empty from '@/layouts/Empty.vue';
+import LeftSidebar from '@/layouts/LeftSidebar.vue';
+
+export default {
+  computed: {
+    layout() {
+      return(this.$route.meta.layout || 'Empty');
+    }
+  },
+  components: {
+    Empty, LeftSidebar
+  }
+};
+</script>
