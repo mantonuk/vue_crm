@@ -14,6 +14,7 @@
             class="dropdown-trigger black-text"
             href="#"
             data-target="dropdown"
+            ref="dropdown"
           >
             USER NAME
             <i class="material-icons right">arrow_drop_down</i>
@@ -21,9 +22,9 @@
 
           <ul id="dropdown" class="dropdown-content">
             <li>
-              <a href="#" class="black-text">
+              <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
-              </a>
+              </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
@@ -41,7 +42,13 @@
 <script>
 export default {
   name: "NavBar",
-  data : () => ({
-  })
+  mounted() {
+    window.M.Dropdown.init(
+      this.$refs.dropdown,
+      {
+        constrainWidth: false
+      }
+    );
+  }
 };
 </script>
