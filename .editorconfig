@@ -10,9 +10,10 @@ insert_final_newline = true
 
 # Matches multiple files with brace expansion notation
 # Set default charset
-[*.{js,py,vue}]
+[*.{js,vue}]
 charset = utf-8
 indent_size = 2
+indent_style = space
 
 # 4 space indentation
 [*.py]
