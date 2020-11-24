@@ -2,7 +2,7 @@
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <a href="#" @click.prevent="$emit('click');">
+        <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
         <span class="black-text">{{ date }}</span>
@@ -42,28 +42,36 @@
 <script>
 export default {
   name: "NavBar",
-  data : () => ({
-    date: new Date(),
+  data: () => ({
+		date: null,
     interval: null,
     dropdown: null
   }),
-  methods : {
+  methods: {
     logout() {
-      console.log('logout');
-      this.$router.push('/login');
+      console.log("logout");
+      this.$router.push("/login");
+		},
+		formatDate(date) {
+			const options = {
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+				hour: "numeric",
+				minute: "numeric",
+				second: "numeric"
+			};
+			return date.toLocaleString("ru", options);
     }
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.date = new Date()
+      this.date = this.formatDate(new Date());
     }, 1000);
-    this.dropdown = window.M.Dropdown.init(
-      this.$refs.dropdown,
-      {
-        constrainWidth: false
-      }
-    );
-  }, 
+    this.dropdown = window.M.Dropdown.init(this.$refs.dropdown, {
+      constrainWidth: false
+    });
+  },
   beforeDestroy() {
     clearInterval(this.interval);
     if (this.dropdown && this.dropdown.destroy) {
