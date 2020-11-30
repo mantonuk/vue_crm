@@ -44,7 +44,11 @@
     </div>
     <div class="card-action">
       <div>
-        <button class="btn waves-effect waves-light auth-submit" type="submit">
+        <button
+          class="btn waves-effect waves-light auth-submit"
+          type="submit"
+          :disabled="$v.$invalid"
+        >
           Войти
           <i class="material-icons right">send</i>
         </button>
@@ -80,6 +84,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$v.$touch();
+      console.log(this.$v);
       if (!this.$v.$invalid) {
         this.$router.push("/");
       }

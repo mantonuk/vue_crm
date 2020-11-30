@@ -64,7 +64,11 @@
     </div>
     <div class="card-action">
       <div>
-        <button class="btn waves-effect waves-light auth-submit" type="submit" :disabled="!agree">
+        <button
+          class="btn waves-effect waves-light auth-submit"
+          type="submit"
+          :disabled="!agree || $v.$invalid"
+        >
           Зарегистрироваться
           <i class="material-icons right">send</i>
         </button>
@@ -99,8 +103,7 @@ export default {
     },
     name: {
       required
-    },
-    
+    }
   },
   methods: {
     handleSubmit() {
