@@ -92,11 +92,22 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       this.$v.$touch();
       console.log(this.$v);
+
       if (!this.$v.$invalid) {
-        this.$router.push("/");
+        try {
+          const formData = {
+            email: this.email,
+            password: this.password
+          };
+
+          await this.$store.dispatch("login", formData);
+          this.$router.push("/");
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   }

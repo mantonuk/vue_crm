@@ -106,11 +106,22 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       console.log("handleSUbmit");
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.$router.push("/");
+        try {
+          const formData = {
+            email: this.email,
+            password: this.password,
+            name: this.name
+          };
+
+          await this.$store.dispatch("register", formData);
+          this.$router.push("/");
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   }

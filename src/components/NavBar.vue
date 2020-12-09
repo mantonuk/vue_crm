@@ -43,24 +43,26 @@
 export default {
   name: "NavBar",
   data: () => ({
-		date: null,
+    date: null,
     interval: null,
     dropdown: null
   }),
   methods: {
-    logout() {
+    async logout() {
+      console.log("logout");
+      await this.$store.dispatch("logout");
       this.$router.push("/login?message=logout");
-		},
-		formatDate(date) {
-			const options = {
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-				hour: "numeric",
-				minute: "numeric",
-				second: "numeric"
-			};
-			return date.toLocaleString("ru", options);
+    },
+    formatDate(date) {
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
+      };
+      return date.toLocaleString("ru", options);
     }
   },
   mounted() {
