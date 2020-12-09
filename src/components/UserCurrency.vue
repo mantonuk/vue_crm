@@ -17,8 +17,8 @@
           <tbody>
             <tr v-for="(item, index) in rates" :key="index">
               <td>{{ index }}</td>
-              <td>{{ item }}</td>
-              <td>{{ index }}</td>
+              <td>{{ item.toFixed(5) }}</td>
+              <td>{{ date | DateFilter('date') }}</td>
             </tr>
           </tbody>
         </table>
@@ -30,6 +30,6 @@
 <script>
 export default {
   name: "UserCurrency",
-  props: ["rates"]
+  props: ["rates", "date"]
 };
 </script>

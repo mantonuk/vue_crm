@@ -8,6 +8,7 @@ import store from "./store";
 import messagePlugin from "@/utils/message.plugin.js";
 import "materialize-css/dist/js/materialize.min.js";
 import Loader from "@/components/Loader";
+import DateFilter from "@/filters/DateFilter";
 import CurrencyFilter from "@/filters/CurrencyFilter";
 
 Vue.config.productionTip = false;
@@ -19,6 +20,7 @@ import "firebase/database";
 Vue.use(Vuelidate);
 Vue.use(messagePlugin);
 Vue.filter("CurrencyFilter", CurrencyFilter);
+Vue.filter("DateFilter", DateFilter);
 Vue.component("Loader", Loader);
 
 const firebaseConfig = {

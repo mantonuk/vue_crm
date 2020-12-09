@@ -5,7 +5,7 @@
         <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ date }}</span>
+        <span class="black-text">{{ date | DateFilter('datetime') }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -72,7 +72,7 @@ export default {
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.date = this.formatDate(new Date());
+      this.date = new Date();
     }, 1000);
     this.dropdown = window.M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: false
