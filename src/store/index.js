@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import auth from "./auth";
 import user_info from "./user_info";
 import currency_info from "./currency_info";
+import category from "./category";
 
 Vue.use(Vuex);
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     user_info,
-    currency_info
+    currency_info,
+    category
   }
 });
