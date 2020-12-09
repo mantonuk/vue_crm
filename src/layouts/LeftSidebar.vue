@@ -1,10 +1,10 @@
 <template>
   <div class="app-main-layout">
-    <NavBar click="isOpen = !isOpen"/>
+    <NavBar click="isOpen = !isOpen" />
 
     <SidebarMenu v-model="isOpen" />
 
-    <main class="app-content" :class="{full: !isOpen}">
+    <main class="app-content" :class="{ full: !isOpen }">
       <div class="app-page">
         <router-view />
       </div>
@@ -19,18 +19,25 @@
 </template>
 
 <script>
-
-import NavBar from "@/components/NavBar.vue"
-import SidebarMenu from "@/components/SidebarMenu.vue"
+import NavBar from "@/components/NavBar.vue";
+import SidebarMenu from "@/components/SidebarMenu.vue";
 
 export default {
   name: "LeftSidebar",
+  data: () => ({
+    isOpen: true,
+    loading: true
+  }),
   components: {
     NavBar,
-    SidebarMenu,
+    SidebarMenu
   },
-  data: () => ({
-    isOpen: true
-  })
+  async mounted() {
+    if (!Object.keys(this.$store.getters.user_info).length) {
+      await this.$store.dispatch("fetchUserInfo");
+    }
+
+    this.loading = false;
+  }
 };
 </script>

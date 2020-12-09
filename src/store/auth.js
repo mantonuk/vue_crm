@@ -1,30 +1,26 @@
 import firebase from "firebase/app";
 
 //import { mapGetters, mapActions, mapMutations } from "vuex";
-import { mapActions } from "vuex";
+//import { mapActions } from "vuex";
 
 export default {
   methods: {
-    ...mapActions(["getCurrentUser"])
   },
   actions: {
-    ...mapActions(["getCurrentUser"]),
-    async login({ dispatch, commit }, { email, password }) {
+    async login({ commit }, { email, password }) {
       try {
         console.log("Login action");
-        console.log(dispatch, commit, email, password);
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        console.log("---------------------------");
-        console.log(this.getCurrentUser());
       } catch (error) {
         commit("setError", error);
         throw error;
       }
     },
 
-    async logout() {
+    async logout({ commit }) {
       console.log("logout action");
       await firebase.auth().signOut();
+      commit("clearUserInfo");
     },
 
     async register({ dispatch, commit }, { email, password, name }) {

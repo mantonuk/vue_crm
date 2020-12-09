@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./auth";
+import user_info from "./user_info";
 
 Vue.use(Vuex);
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     getError: state => state.error
   },
   modules: {
-    auth
+    auth,
+    user_info
   }
 });
