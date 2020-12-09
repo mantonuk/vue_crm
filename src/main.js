@@ -6,8 +6,9 @@ import router from "./router";
 import store from "./store";
 
 import messagePlugin from "@/utils/message.plugin.js";
-
 import "materialize-css/dist/js/materialize.min.js";
+import Loader from "@/components/Loader";
+import CurrencyFilter from "@/filters/CurrencyFilter";
 
 Vue.config.productionTip = false;
 
@@ -17,6 +18,8 @@ import "firebase/database";
 
 Vue.use(Vuelidate);
 Vue.use(messagePlugin);
+Vue.filter("CurrencyFilter", CurrencyFilter);
+Vue.component("Loader", Loader);
 
 const firebaseConfig = {
   apiKey: "AIzaSyCPcliXkbxL-q9wOZc9LxWUmS2GcyyTveI",

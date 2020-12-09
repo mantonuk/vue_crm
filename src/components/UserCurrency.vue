@@ -15,10 +15,10 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td>руб</td>
-              <td>12121</td>
-              <td>12.12.12</td>
+            <tr v-for="(item, index) in rates" :key="index">
+              <td>{{ index }}</td>
+              <td>{{ item }}</td>
+              <td>{{ index }}</td>
             </tr>
           </tbody>
         </table>
@@ -27,4 +27,9 @@
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: "UserCurrency",
+  props: ["rates"]
+};
+</script>
