@@ -16,7 +16,7 @@
             data-target="dropdown"
             ref="dropdown"
           >
-            USER NAME
+            {{ userInfo.name }}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -47,6 +47,11 @@ export default {
     interval: null,
     dropdown: null
   }),
+  computed: {
+    userInfo() {
+      return this.$store.getters.user_info;
+    }
+  },
   methods: {
     async logout() {
       console.log("logout");
