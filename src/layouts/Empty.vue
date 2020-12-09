@@ -4,4 +4,19 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import messages from "@/utils/messages";
+
+export default {
+  computed: {
+    error() {
+      return this.$store.getters.getError;
+    }
+  },
+  watch: {
+    error(fbError) {
+      this.$error(messages[fbError.code] || "Something went wrong");
+    }
+  }
+};
+</script>

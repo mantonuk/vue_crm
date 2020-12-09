@@ -120,7 +120,7 @@ export default {
           await this.$store.dispatch("register", formData);
           this.$router.push("/");
         } catch (error) {
-          console.log(error);
+          /*console.log(error);*/
         }
       }
     }
