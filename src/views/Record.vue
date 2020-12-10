@@ -88,6 +88,7 @@
 
 <script>
 import { required, minValue } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Record",
@@ -100,6 +101,15 @@ export default {
     amount: null,
     description: null
   }),
+  computed: {
+    ...mapGetters(["user_info"]),
+    canCreateRecord() {
+      if (this.type === "income") {
+        return true;
+      }
+      return this.user_info.bill >= this.amount;
+    }
+  },
   validations: {
     category: {
       required
@@ -118,6 +128,11 @@ export default {
   async mounted() {
     this.categories = await this.$store.dispatch("CategoriesFetch");
     this.loading = false;
+
+    if (this.categories.length) {
+      this.category = this.categories[0].id;
+    }
+
     setTimeout(() => {
       this.select = window.M.FormSelect.init(this.$refs.select);
       window.M.updateTextFields();
@@ -144,14 +159,35 @@ export default {
         console.log(data);
         //
 
-        await this.$store.dispatch("RecordCreate", {
-          categoryId: this.category,
-          amount: this.amount,
-          description: this.description,
-          type: this.type,
-          date: new Date().toJSON()
-        });
+        if (this.canCreateRecord) {
+          await this.$store.dispatch("RecordCreate", {
+            categoryId: this.category,
+            amount: this.amount,
+            description: this.description,
+            type: this.type,
+            date: new Date().toJSON()
+          });
 
+          const bill =
+            this.type === "income"
+              ? this.user_info.bill + this.amount
+              : this.user_info.bill - this.amount;
+
+          await this.$store.dispatch("updateUserInfo", { bill });
+          this.$message("Запись успешно создана");
+          this.$v.$reset();
+          this.type = "";
+          this.amount = "";
+          this.description = "";
+          if (this.categories.length) {
+            this.category = this.categories[0].id;
+          }
+        } else {
+          this.$message(
+            `Недостаточно средств на счете (${this.amount -
+              this.user_info.bill})`
+          );
+        }
       }
     }
   }
