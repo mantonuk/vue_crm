@@ -46,7 +46,7 @@
           <button
             class="btn waves-effect waves-light"
             type="submit"
-            :disabled="$v.$invalid"
+            :disabled="$v.$dirty && $v.$invalid"
           >
             Создать
             <i class="material-icons right">send</i>

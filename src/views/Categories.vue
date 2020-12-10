@@ -7,7 +7,9 @@
       <Loader v-if="loading" />
       <div class="row" v-else>
         <CategoryCreate @created="createNewCategory" />
-        <CategoryUpdate :categories="categories" />
+        <CategoryUpdate
+        :key="categories.length + updateCount"
+        :categories="categories" @updated="updateCategory" />
       </div>
     </section>
   </div>
@@ -37,6 +39,13 @@ export default {
       console.log("categoryHasBeenCreated");
       this.categories.push(item);
       console.log(this.categories);
+    },
+    updateCategory(category) {
+      console.log("categoryHasBeenUpdated");
+      const idx = this.categories.findIndex(c => c.id === category.id);
+      this.categories[idx].name = category.name;
+      this.categories[idx].limit = category.limit;
+      this.updateCount++;
     }
   }
 };

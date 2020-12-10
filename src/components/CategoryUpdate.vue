@@ -5,7 +5,7 @@
         <h4>Редактировать</h4>
       </div>
 
-      <form>
+      <form @submit.prevent="handleSubmit">
         <div class="input-field">
           <select ref="select" v-model="current">
             <option v-for="c of categories" :key="c.id" :value="c.id">{{
@@ -41,7 +41,11 @@
           </small>
         </div>
 
-        <button class="btn waves-effect waves-light" type="submit">
+        <button
+          class="btn waves-effect waves-light"
+          :disabled="$v.$dirty && $v.$invalid"
+          type="submit"
+        >
           Обновить
           <i class="material-icons right">send</i>
         </button>
@@ -76,8 +80,6 @@ export default {
     }
   },
   created() {
-    console.log("created");
-    console.log(this.categories[0]);
     const { id, name, limit } = this.categories[0];
     this.current = id;
     this.name = name;
@@ -91,14 +93,29 @@ export default {
     }
   },
   mounted() {
-    console.log("mounted");
-    console.log(this.categories);
     this.select = window.M.FormSelect.init(this.$refs.select);
     window.M.updateTextFields();
   },
   destroyed() {
     if (this.select && this.select.destroy) {
       this.select.destroy();
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      console.log("handleSubmit");
+      console.log(this.$v);
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        const categoryData = {
+          id: this.current,
+          name: this.name,
+          limit: this.limit
+        };
+        await this.$store.dispatch("updateCategory", categoryData);
+        this.$message("Категория упешно обновлена");
+        this.$emit("updated", categoryData);
+      }
     }
   }
 };
