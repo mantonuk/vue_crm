@@ -4,9 +4,10 @@
       <h3>Категории</h3>
     </div>
     <section>
-      <div class="row">
+      <Loader v-if="loading" />
+      <div class="row" v-else>
         <CategoryCreate @created="createNewCategory" />
-        <CategoryUpdate />
+        <CategoryUpdate :categories="categories" />
       </div>
     </section>
   </div>
@@ -18,11 +19,18 @@ import CategoryUpdate from "@/components/CategoryUpdate";
 export default {
   name: "Categories",
   data: () => ({
-    categories: []
+    categories: [],
+    loading: true,
+    updateCount: 0
   }),
   components: {
     CategoryCreate,
     CategoryUpdate
+  },
+  async mounted() {
+    this.categories = await this.$store.dispatch("CategoriesFetch");
+    console.log(this.categories);
+    this.loading = false;
   },
   methods: {
     createNewCategory(item) {

@@ -7,22 +7,38 @@
 
       <form>
         <div class="input-field">
-          <select>
-            <option>Category</option>
+          <select ref="select" v-model="current">
+            <option v-for="c of categories" :key="c.id" :value="c.id">{{
+              c.name
+            }}</option>
           </select>
           <label>Выберите категорию</label>
         </div>
 
         <div class="input-field">
-          <input type="text" id="name" />
+          <input type="text" id="name" v-model="name" />
           <label for="name">Название</label>
-          <span class="helper-text invalid">TITLE</span>
+          <small
+            class="helper-text invalid"
+            v-if="$v.name.$dirty && !$v.name.required"
+            >введите название</small
+          >
         </div>
 
         <div class="input-field">
-          <input id="limit" type="number" />
+          <input id="limit" type="number" v-model.number="limit" />
           <label for="limit">Лимит</label>
-          <span class="helper-text invalid">LIMIT</span>
+          <small
+            class="helper-text invalid"
+            v-if="$v.limit.$dirty && !$v.limit.required"
+            >введите лимит</small
+          >
+          <small
+            class="helper-text invalid"
+            v-if="$v.limit.$dirty && !$v.limit.minValue"
+          >
+            min: {{ $v.limit.$params.minValue.min }}
+          </small>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
@@ -35,10 +51,55 @@
 </template>
 
 <script>
+import { required, minValue } from "vuelidate/lib/validators";
 export default {
   name: "CategoryUpdate",
+  data: () => ({
+    select: null,
+    name: "",
+    limit: 100,
+    current: null
+  }),
+  validations: {
+    name: {
+      required
+    },
+    limit: {
+      required,
+      minValue: minValue(100)
+    }
+  },
   props: {
-    msg: String
+    categories: {
+      type: Array,
+      required: true
+    }
+  },
+  created() {
+    console.log("created");
+    console.log(this.categories[0]);
+    const { id, name, limit } = this.categories[0];
+    this.current = id;
+    this.name = name;
+    this.limit = limit;
+  },
+  watch: {
+    current(catId) {
+      const { name, limit } = this.categories.find(c => c.id === catId);
+      this.name = name;
+      this.limit = limit;
+    }
+  },
+  mounted() {
+    console.log("mounted");
+    console.log(this.categories);
+    this.select = window.M.FormSelect.init(this.$refs.select);
+    window.M.updateTextFields();
+  },
+  destroyed() {
+    if (this.select && this.select.destroy) {
+      this.select.destroy();
+    }
   }
 };
 </script>

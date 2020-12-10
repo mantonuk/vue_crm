@@ -17,7 +17,6 @@ export default {
   },
   actions: {
     async fetchUserInfo({ dispatch, commit }) {
-      console.log("123");
       try {
         const uid = await dispatch("getUserId");
         const user_info = (
@@ -26,7 +25,6 @@ export default {
             .ref(`/users/${uid}/info`)
             .once("value")
         ).val();
-        console.log(user_info);
         commit("setUserInfo", user_info);
       } catch (e) {
         console.log(e);

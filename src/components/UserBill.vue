@@ -17,7 +17,10 @@ export default {
   props: ["rates", "fixer_base"],
   computed: {
     base() {
-      return this.$store.getters.user_info.bill / (this.rates['UAH'] / this.rates['EUR'])
+      return (
+        this.$store.getters.user_info.bill /
+        (this.rates["UAH"] / this.rates["EUR"])
+      );
     }
   },
   methods: {

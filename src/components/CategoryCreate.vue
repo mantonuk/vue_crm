@@ -33,7 +33,7 @@
             <small
               class="helper-text invalid"
               v-if="$v.limit.$dirty && !$v.limit.required"
-              >введите название</small
+              >введите лимит</small
             >
             <small
               class="helper-text invalid"
