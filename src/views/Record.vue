@@ -52,7 +52,12 @@
       </p>
 
       <div class="input-field">
-        <input id="amount" type="number" v-model.number="amount" />
+        <input
+          id="amount"
+          type="number"
+          v-model.number="amount"
+          :class="{ invalid: $v.amount.$dirty && $v.amount.$error }"
+        />
         <label for="amount">Сумма</label>
         <span
           v-if="$v.amount.$dirty && !$v.amount.required"
@@ -69,7 +74,12 @@
       </div>
 
       <div class="input-field">
-        <input id="description" type="text" v-model.trim="description" />
+        <input
+          id="description"
+          type="text"
+          v-model.trim="description"
+          :class="{ invalid: $v.description.$dirty && $v.description.$error }"
+        />
         <label for="description">Описание</label>
         <span
           v-if="$v.description.$dirty && !$v.description.required"
