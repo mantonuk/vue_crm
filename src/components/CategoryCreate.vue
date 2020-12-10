@@ -32,6 +32,11 @@
             <label for="limit">Лимит</label>
             <small
               class="helper-text invalid"
+              v-if="$v.limit.$dirty && !$v.limit.required"
+              >введите название</small
+            >
+            <small
+              class="helper-text invalid"
               v-if="$v.limit.$dirty && !$v.limit.minValue"
             >
               min: {{ $v.limit.$params.minValue.min }}
@@ -65,6 +70,7 @@ export default {
       required
     },
     limit: {
+      required,
       minValue: minValue(100)
     }
   },
