@@ -10,6 +10,7 @@ import "materialize-css/dist/js/materialize.min.js";
 import Loader from "@/components/Loader";
 import DateFilter from "@/filters/DateFilter";
 import CurrencyFilter from "@/filters/CurrencyFilter";
+import TooltipDirective from "@/directives/Tooltip";
 
 Vue.config.productionTip = false;
 
@@ -21,6 +22,7 @@ Vue.use(Vuelidate);
 Vue.use(messagePlugin);
 Vue.filter("CurrencyFilter", CurrencyFilter);
 Vue.filter("DateFilter", DateFilter);
+Vue.directive("TooltipDirective", TooltipDirective);
 Vue.component("Loader", Loader);
 
 const firebaseConfig = {

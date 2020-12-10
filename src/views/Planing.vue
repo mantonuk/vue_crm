@@ -18,7 +18,7 @@
           {{ category.outcome | CurrencyFilter("UAH") }} из
           {{ category.limit | CurrencyFilter("UAH") }}
         </p>
-        <div class="progress">
+        <div class="progress" v-TooltipDirective="category.tooltip">
           <div
             class="determinate"
             :style="{ width: category.progressPercent + '%' }"
@@ -32,6 +32,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import CurrencyFilter from "@/filters/CurrencyFilter";
 
 export default {
   name: "Planing",
@@ -61,11 +62,17 @@ export default {
       const progressColor =
         percent < 60 ? "green" : percent < 100 ? "yellow" : "red";
 
+      const tooltipValue = category.limit - outcome;
+      const tooltip = `${
+        tooltipValue < 0 ? "Превышение на" : "Осталось"
+      } ${CurrencyFilter(Math.abs(tooltipValue), "UAH")}`;
+
       return {
         ...category,
         outcome,
         progressPercent,
-        progressColor
+        progressColor,
+        tooltip
       };
     });
 
