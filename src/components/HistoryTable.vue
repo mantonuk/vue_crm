@@ -23,7 +23,7 @@
           }}</span>
         </td>
         <td>
-          <button class="btn-small btn">
+          <button class="btn-small btn" v-TooltipDirective="'View'">
             <i class="material-icons">open_in_new</i>
           </button>
         </td>
