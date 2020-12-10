@@ -84,7 +84,7 @@ export default {
             name: this.name,
             limit: this.limit
           });
-          this.name= "";
+          this.name = "";
           this.limit = 100;
           this.$v.$reset();
           this.$message("Категория была создана");
