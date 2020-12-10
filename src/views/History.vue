@@ -34,7 +34,6 @@ export default {
     loading: true
   }),
   async mounted() {
-    console.log("mounted");
     const categories = await this.$store.dispatch("CategoriesFetch");
     const records = await this.$store.dispatch("RecordsFetch");
 
