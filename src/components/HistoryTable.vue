@@ -14,8 +14,8 @@
     <tbody>
       <tr v-for="(record, index) in records" :key="record.id">
         <td>{{ index + 1 }}</td>
-        <td>{{ record.amount }}</td>
-        <td>{{ record.date }}</td>
+        <td>{{ record.amount | CurrencyFilter("UAH") }}</td>
+        <td>{{ record.date | DateFilter("datetime") }}</td>
         <td>{{ record.categoryName }}</td>
         <td>
           <span class="white-text badge" :class="record.typeCss">{{
