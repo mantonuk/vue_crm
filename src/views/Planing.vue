@@ -18,7 +18,11 @@
           {{ category.outcome }} из {{ category.limit }}
         </p>
         <div class="progress">
-          <div class="determinate green" style="width:40%"></div>
+          <div
+            class="determinate"
+            :style="{ width: category.progressPercent + '%' }"
+            :class="category.progressColor"
+          ></div>
         </div>
       </div>
     </section>
@@ -45,22 +49,27 @@ export default {
     const categories = await this.$store.dispatch("CategoriesFetch");
     const records = await this.$store.dispatch("RecordsFetch");
 
-    categories.map(category => {
-      const income = records
-        .filter(record => record.categoryId === category.id)
-        .filter(record => record.type === "income")
-        .reduce((a, b) => a + (b["amount"] || 0), 0);
+    this.categories = categories.map(category => {
       const outcome = records
         .filter(record => record.categoryId === category.id)
         .filter(record => record.type === "outcome")
-        .reduce((a, b) => a + (b["amount"] || 0), 0);
-      /*console.log(income);*/
-      /*console.log(outcome);*/
-      category.income = income;
-      category.outcome = outcome;
+        .reduce((total, b) => total + (b.amount || 0), 0);
+
+      const percent = (100 * outcome) / category.limit;
+      const progressPercent = percent > 100 ? 100 : percent;
+      const progressColor =
+        percent < 60 ? "green" : percent < 100 ? "yellow" : "red";
+
+      return {
+        ...category,
+        outcome,
+        progressPercent,
+        progressColor
+      };
     });
 
-    this.categories = categories;
+    console.log(this.categories);
+
     this.loading = false;
   }
 };
