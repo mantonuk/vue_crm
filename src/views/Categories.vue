@@ -5,7 +5,7 @@
     </div>
     <section>
       <div class="row">
-        <CategoryCreate />
+        <CategoryCreate @created="createNewCategory" />
         <CategoryUpdate />
       </div>
     </section>
@@ -17,9 +17,19 @@ import CategoryCreate from "@/components/CategoryCreate";
 import CategoryUpdate from "@/components/CategoryUpdate";
 export default {
   name: "Categories",
+  data: () => ({
+    categories: []
+  }),
   components: {
     CategoryCreate,
     CategoryUpdate
+  },
+  methods: {
+    createNewCategory(item) {
+      console.log("categoryHasBeenCreated");
+      this.categories.push(item);
+      console.log(this.categories);
+    }
   }
 };
 </script>
