@@ -13,9 +13,10 @@
 
     <section v-else>
       <div v-for="category in categories" :key="category.id">
-        <p>
+        <p class="left">
           <strong>{{ category.name }}</strong>
-          {{ category.outcome }} из {{ category.limit }}
+          {{ category.outcome | CurrencyFilter("UAH") }} из
+          {{ category.limit | CurrencyFilter("UAH") }}
         </p>
         <div class="progress">
           <div
@@ -67,8 +68,6 @@ export default {
         progressColor
       };
     });
-
-    console.log(this.categories);
 
     this.loading = false;
   }
