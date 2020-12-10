@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log("handleSubmit");
       this.$v.$touch();
       if (!this.$v.$invalid) {
         try {

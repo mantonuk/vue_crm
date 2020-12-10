@@ -5,7 +5,7 @@
         <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ date | DateFilter('datetime') }}</span>
+        <span class="black-text">{{ date | DateFilter("datetime") }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     async logout() {
-      console.log("logout");
       await this.$store.dispatch("logout");
       this.$router.push("/login?message=logout");
     },

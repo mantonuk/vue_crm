@@ -23,12 +23,12 @@ export default {
           .ref(`/users/${uid}/categories`)
           .child(id)
           .update({ name, limit });
-      } catch (e) {
-        commit("setError", e);
-        throw e;
+      } catch (error) {
+        commit("setError", error);
+        throw error;
       }
     },
-    async CategoriesFetch({ dispatch }) {
+    async CategoriesFetch({ commit, dispatch }) {
       try {
         const uid = await dispatch("getUserId");
         const categories =
@@ -44,7 +44,7 @@ export default {
           test: "Test"
         }));
       } catch (error) {
-        console.log(error);
+        commit("setError", error);
         throw error;
       }
     }

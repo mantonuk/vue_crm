@@ -94,7 +94,6 @@ export default {
   methods: {
     async handleSubmit() {
       this.$v.$touch();
-      console.log(this.$v);
 
       if (!this.$v.$invalid) {
         try {
@@ -106,7 +105,6 @@ export default {
           await this.$store.dispatch("login", formData);
           this.$router.push("/");
         } catch (error) {
-          console.log(error);
           this.$router.push({
             path: "/login",
             query: {

@@ -26,8 +26,9 @@ export default {
             .once("value")
         ).val();
         commit("setUserInfo", user_info);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        commit("setError", error);
+        throw error;
       }
     },
     async updateUserInfo({ dispatch, commit, getters }, toUpdate) {

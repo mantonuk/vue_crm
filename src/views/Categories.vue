@@ -35,17 +35,13 @@ export default {
   },
   async mounted() {
     this.categories = await this.$store.dispatch("CategoriesFetch");
-    console.log(this.categories);
     this.loading = false;
   },
   methods: {
     createNewCategory(item) {
-      console.log("categoryHasBeenCreated");
       this.categories.push(item);
-      console.log(this.categories);
     },
     updateCategory(category) {
-      console.log("categoryHasBeenUpdated");
       const idx = this.categories.findIndex(c => c.id === category.id);
       this.categories[idx].name = category.name;
       this.categories[idx].limit = category.limit;

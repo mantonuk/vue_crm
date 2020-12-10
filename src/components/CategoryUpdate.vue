@@ -113,8 +113,6 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log("handleSubmit");
-      console.log(this.$v);
       this.$v.$touch();
       if (!this.$v.$invalid) {
         const categoryData = {

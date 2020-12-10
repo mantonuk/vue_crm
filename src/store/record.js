@@ -29,8 +29,7 @@ export default {
           id: key
         }));
       } catch (error) {
-        console.log(error);
-        throw error;
+        //console.log(error);
       }
     }
   }

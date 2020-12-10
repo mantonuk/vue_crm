@@ -160,20 +160,8 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log("handleSubmit");
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        const data = {
-          categoryId: this.category,
-          amount: this.amount,
-          description: this.description,
-          type: this.type,
-          date: new Date().toJSON()
-        };
-
-        console.log(data);
-        //
-
         if (this.canCreateRecord) {
           await this.$store.dispatch("RecordCreate", {
             categoryId: this.category,
