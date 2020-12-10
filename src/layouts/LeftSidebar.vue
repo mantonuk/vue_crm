@@ -29,12 +29,24 @@
 import NavBar from "@/components/NavBar.vue";
 import SidebarMenu from "@/components/SidebarMenu.vue";
 
+import messages from "@/utils/messages";
+
 export default {
   name: "LeftSidebar",
   data: () => ({
     isOpen: true,
     loading: true
   }),
+  computed: {
+    error() {
+      return this.$store.getters.getError;
+    }
+  },
+  watch: {
+    error(fbError) {
+      this.$error(messages[fbError.code] || "Something went wrong");
+    }
+  },
   components: {
     NavBar,
     SidebarMenu

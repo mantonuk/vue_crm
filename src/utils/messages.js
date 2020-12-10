@@ -1,5 +1,5 @@
 export default {
-  login: "Logged in message",
+  login: "Login message",
   logout: "Logged out message",
   "auth/user-not-found": "Not found message",
   "auth/wrong-password": "Wrong password message",
