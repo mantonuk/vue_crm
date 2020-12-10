@@ -16,7 +16,12 @@
         </div>
 
         <div class="input-field">
-          <input type="text" id="name" v-model="name" />
+          <input
+            type="text"
+            id="name"
+            v-model="name"
+            :class="{ invalid: $v.name.$dirty && $v.name.$error }"
+          />
           <label for="name">Название</label>
           <small
             class="helper-text invalid"
@@ -26,7 +31,12 @@
         </div>
 
         <div class="input-field">
-          <input id="limit" type="number" v-model.number="limit" />
+          <input
+            id="limit"
+            type="number"
+            v-model.number="limit"
+            :class="{ invalid: $v.limit.$dirty && $v.limit.$error }"
+          />
           <label for="limit">Лимит</label>
           <small
             class="helper-text invalid"
