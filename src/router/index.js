@@ -78,7 +78,7 @@ const routes = [
     component: () => import("../views/Record.vue")
   },
   {
-    path: "/detail-record",
+    path: "/detail-record/:id",
     name: "DetailRecord",
     meta: {
       layout: "LeftSidebar",
