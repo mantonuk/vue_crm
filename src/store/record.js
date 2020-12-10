@@ -13,6 +13,25 @@ export default {
         commit("setError", error);
         throw error;
       }
+    },
+    async RecordsFetch({ dispatch }) {
+      try {
+        const uid = await dispatch("getUserId");
+        const records =
+          (
+            await firebase
+              .database()
+              .ref(`/users/${uid}/records`)
+              .once("value")
+          ).val() || {};
+        return Object.keys(records).map(key => ({
+          ...records[key],
+          id: key
+        }));
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     }
   }
 };
