@@ -45,6 +45,11 @@
           <span>Расход</span>
         </label>
       </p>
+      <p v-if="$v.type.$dirty && !$v.type.required">
+        <span class="helper-text invalid">
+          Введите тип
+        </span>
+      </p>
 
       <div class="input-field">
         <input id="amount" type="number" v-model.number="amount" />
@@ -96,7 +101,7 @@ export default {
     categories: [],
     loading: true,
     select: null,
-    type: null,
+    type: "outcome",
     category: null,
     amount: null,
     description: null
@@ -176,7 +181,7 @@ export default {
           await this.$store.dispatch("updateUserInfo", { bill });
           this.$message("Запись успешно создана");
           this.$v.$reset();
-          this.type = "";
+          this.type = "outcome";
           this.amount = "";
           this.description = "";
           if (this.categories.length) {
